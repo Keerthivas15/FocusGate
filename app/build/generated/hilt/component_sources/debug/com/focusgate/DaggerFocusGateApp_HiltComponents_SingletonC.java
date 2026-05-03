@@ -21,6 +21,8 @@ import com.focusgate.service.AppMonitorService;
 import com.focusgate.service.AppMonitorService_MembersInjector;
 import com.focusgate.service.BootReceiver;
 import com.focusgate.service.BootReceiver_MembersInjector;
+import com.focusgate.ui.navigation.NavViewModel;
+import com.focusgate.ui.navigation.NavViewModel_HiltModules;
 import com.focusgate.ui.screen.AppSelectViewModel;
 import com.focusgate.ui.screen.AppSelectViewModel_HiltModules;
 import com.focusgate.ui.screen.CreditsViewModel;
@@ -400,7 +402,7 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
 
     @Override
     public Map<Class<?>, Boolean> getViewModelKeys() {
-      return LazyClassKeyMap.<Boolean>of(MapBuilder.<String, Boolean>newMapBuilder(6).put(LazyClassKeyProvider.com_focusgate_ui_screen_AppSelectViewModel, AppSelectViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_CreditsViewModel, CreditsViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_DashboardViewModel, DashboardViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_MathGateViewModel, MathGateViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_OnboardingViewModel, OnboardingViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_SettingsViewModel, SettingsViewModel_HiltModules.KeyModule.provide()).build());
+      return LazyClassKeyMap.<Boolean>of(MapBuilder.<String, Boolean>newMapBuilder(7).put(LazyClassKeyProvider.com_focusgate_ui_screen_AppSelectViewModel, AppSelectViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_CreditsViewModel, CreditsViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_DashboardViewModel, DashboardViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_MathGateViewModel, MathGateViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_navigation_NavViewModel, NavViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_OnboardingViewModel, OnboardingViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_focusgate_ui_screen_SettingsViewModel, SettingsViewModel_HiltModules.KeyModule.provide()).build());
     }
 
     @Override
@@ -420,6 +422,12 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
+      static String com_focusgate_ui_screen_DashboardViewModel = "com.focusgate.ui.screen.DashboardViewModel";
+
+      static String com_focusgate_ui_navigation_NavViewModel = "com.focusgate.ui.navigation.NavViewModel";
+
+      static String com_focusgate_ui_screen_OnboardingViewModel = "com.focusgate.ui.screen.OnboardingViewModel";
+
       static String com_focusgate_ui_screen_AppSelectViewModel = "com.focusgate.ui.screen.AppSelectViewModel";
 
       static String com_focusgate_ui_screen_CreditsViewModel = "com.focusgate.ui.screen.CreditsViewModel";
@@ -428,9 +436,14 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
 
       static String com_focusgate_ui_screen_SettingsViewModel = "com.focusgate.ui.screen.SettingsViewModel";
 
-      static String com_focusgate_ui_screen_OnboardingViewModel = "com.focusgate.ui.screen.OnboardingViewModel";
+      @KeepFieldType
+      DashboardViewModel com_focusgate_ui_screen_DashboardViewModel2;
 
-      static String com_focusgate_ui_screen_DashboardViewModel = "com.focusgate.ui.screen.DashboardViewModel";
+      @KeepFieldType
+      NavViewModel com_focusgate_ui_navigation_NavViewModel2;
+
+      @KeepFieldType
+      OnboardingViewModel com_focusgate_ui_screen_OnboardingViewModel2;
 
       @KeepFieldType
       AppSelectViewModel com_focusgate_ui_screen_AppSelectViewModel2;
@@ -443,12 +456,6 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
 
       @KeepFieldType
       SettingsViewModel com_focusgate_ui_screen_SettingsViewModel2;
-
-      @KeepFieldType
-      OnboardingViewModel com_focusgate_ui_screen_OnboardingViewModel2;
-
-      @KeepFieldType
-      DashboardViewModel com_focusgate_ui_screen_DashboardViewModel2;
     }
   }
 
@@ -466,6 +473,8 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
     private Provider<DashboardViewModel> dashboardViewModelProvider;
 
     private Provider<MathGateViewModel> mathGateViewModelProvider;
+
+    private Provider<NavViewModel> navViewModelProvider;
 
     private Provider<OnboardingViewModel> onboardingViewModelProvider;
 
@@ -488,13 +497,14 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
       this.creditsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
       this.dashboardViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
       this.mathGateViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 3);
-      this.onboardingViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4);
-      this.settingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5);
+      this.navViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4);
+      this.onboardingViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5);
+      this.settingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 6);
     }
 
     @Override
     public Map<Class<?>, javax.inject.Provider<ViewModel>> getHiltViewModelMap() {
-      return LazyClassKeyMap.<javax.inject.Provider<ViewModel>>of(MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(6).put(LazyClassKeyProvider.com_focusgate_ui_screen_AppSelectViewModel, ((Provider) appSelectViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_CreditsViewModel, ((Provider) creditsViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_DashboardViewModel, ((Provider) dashboardViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_MathGateViewModel, ((Provider) mathGateViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_OnboardingViewModel, ((Provider) onboardingViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_SettingsViewModel, ((Provider) settingsViewModelProvider)).build());
+      return LazyClassKeyMap.<javax.inject.Provider<ViewModel>>of(MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(7).put(LazyClassKeyProvider.com_focusgate_ui_screen_AppSelectViewModel, ((Provider) appSelectViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_CreditsViewModel, ((Provider) creditsViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_DashboardViewModel, ((Provider) dashboardViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_MathGateViewModel, ((Provider) mathGateViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_navigation_NavViewModel, ((Provider) navViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_OnboardingViewModel, ((Provider) onboardingViewModelProvider)).put(LazyClassKeyProvider.com_focusgate_ui_screen_SettingsViewModel, ((Provider) settingsViewModelProvider)).build());
     }
 
     @Override
@@ -504,17 +514,25 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
+      static String com_focusgate_ui_screen_AppSelectViewModel = "com.focusgate.ui.screen.AppSelectViewModel";
+
+      static String com_focusgate_ui_screen_CreditsViewModel = "com.focusgate.ui.screen.CreditsViewModel";
+
       static String com_focusgate_ui_screen_DashboardViewModel = "com.focusgate.ui.screen.DashboardViewModel";
 
       static String com_focusgate_ui_screen_OnboardingViewModel = "com.focusgate.ui.screen.OnboardingViewModel";
 
-      static String com_focusgate_ui_screen_CreditsViewModel = "com.focusgate.ui.screen.CreditsViewModel";
+      static String com_focusgate_ui_screen_MathGateViewModel = "com.focusgate.ui.screen.MathGateViewModel";
 
       static String com_focusgate_ui_screen_SettingsViewModel = "com.focusgate.ui.screen.SettingsViewModel";
 
-      static String com_focusgate_ui_screen_MathGateViewModel = "com.focusgate.ui.screen.MathGateViewModel";
+      static String com_focusgate_ui_navigation_NavViewModel = "com.focusgate.ui.navigation.NavViewModel";
 
-      static String com_focusgate_ui_screen_AppSelectViewModel = "com.focusgate.ui.screen.AppSelectViewModel";
+      @KeepFieldType
+      AppSelectViewModel com_focusgate_ui_screen_AppSelectViewModel2;
+
+      @KeepFieldType
+      CreditsViewModel com_focusgate_ui_screen_CreditsViewModel2;
 
       @KeepFieldType
       DashboardViewModel com_focusgate_ui_screen_DashboardViewModel2;
@@ -523,16 +541,13 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
       OnboardingViewModel com_focusgate_ui_screen_OnboardingViewModel2;
 
       @KeepFieldType
-      CreditsViewModel com_focusgate_ui_screen_CreditsViewModel2;
+      MathGateViewModel com_focusgate_ui_screen_MathGateViewModel2;
 
       @KeepFieldType
       SettingsViewModel com_focusgate_ui_screen_SettingsViewModel2;
 
       @KeepFieldType
-      MathGateViewModel com_focusgate_ui_screen_MathGateViewModel2;
-
-      @KeepFieldType
-      AppSelectViewModel com_focusgate_ui_screen_AppSelectViewModel2;
+      NavViewModel com_focusgate_ui_navigation_NavViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -568,10 +583,13 @@ public final class DaggerFocusGateApp_HiltComponents_SingletonC {
           case 3: // com.focusgate.ui.screen.MathGateViewModel 
           return (T) new MathGateViewModel(singletonCImpl.provideProblemRegistryProvider.get(), singletonCImpl.unlockStateManagerProvider.get(), singletonCImpl.creditRepositoryProvider.get(), singletonCImpl.appPreferencesProvider.get());
 
-          case 4: // com.focusgate.ui.screen.OnboardingViewModel 
+          case 4: // com.focusgate.ui.navigation.NavViewModel 
+          return (T) new NavViewModel(singletonCImpl.appPreferencesProvider.get());
+
+          case 5: // com.focusgate.ui.screen.OnboardingViewModel 
           return (T) new OnboardingViewModel(singletonCImpl.appPreferencesProvider.get());
 
-          case 5: // com.focusgate.ui.screen.SettingsViewModel 
+          case 6: // com.focusgate.ui.screen.SettingsViewModel 
           return (T) new SettingsViewModel(singletonCImpl.appPreferencesProvider.get());
 
           default: throw new AssertionError(id);

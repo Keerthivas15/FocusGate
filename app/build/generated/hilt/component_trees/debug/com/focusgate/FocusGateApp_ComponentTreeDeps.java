@@ -23,6 +23,8 @@ import hilt_aggregated_deps._com_focusgate_di_AppModule;
 import hilt_aggregated_deps._com_focusgate_di_DatabaseModule;
 import hilt_aggregated_deps._com_focusgate_service_AppMonitorService_GeneratedInjector;
 import hilt_aggregated_deps._com_focusgate_service_BootReceiver_GeneratedInjector;
+import hilt_aggregated_deps._com_focusgate_ui_navigation_NavViewModel_HiltModules_BindsModule;
+import hilt_aggregated_deps._com_focusgate_ui_navigation_NavViewModel_HiltModules_KeyModule;
 import hilt_aggregated_deps._com_focusgate_ui_screen_AppSelectViewModel_HiltModules_BindsModule;
 import hilt_aggregated_deps._com_focusgate_ui_screen_AppSelectViewModel_HiltModules_KeyModule;
 import hilt_aggregated_deps._com_focusgate_ui_screen_CreditsViewModel_HiltModules_BindsModule;
@@ -82,6 +84,8 @@ import hilt_aggregated_deps._dagger_hilt_android_internal_modules_HiltWrapper_Ac
         _com_focusgate_di_DatabaseModule.class,
         _com_focusgate_service_AppMonitorService_GeneratedInjector.class,
         _com_focusgate_service_BootReceiver_GeneratedInjector.class,
+        _com_focusgate_ui_navigation_NavViewModel_HiltModules_BindsModule.class,
+        _com_focusgate_ui_navigation_NavViewModel_HiltModules_KeyModule.class,
         _com_focusgate_ui_screen_AppSelectViewModel_HiltModules_BindsModule.class,
         _com_focusgate_ui_screen_AppSelectViewModel_HiltModules_KeyModule.class,
         _com_focusgate_ui_screen_CreditsViewModel_HiltModules_BindsModule.class,

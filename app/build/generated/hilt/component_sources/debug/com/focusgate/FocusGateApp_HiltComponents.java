@@ -4,6 +4,7 @@ import com.focusgate.di.AppModule;
 import com.focusgate.di.DatabaseModule;
 import com.focusgate.service.AppMonitorService_GeneratedInjector;
 import com.focusgate.service.BootReceiver_GeneratedInjector;
+import com.focusgate.ui.navigation.NavViewModel_HiltModules;
 import com.focusgate.ui.screen.AppSelectViewModel_HiltModules;
 import com.focusgate.ui.screen.CreditsViewModel_HiltModules;
 import com.focusgate.ui.screen.DashboardViewModel_HiltModules;
@@ -173,6 +174,7 @@ public final class FocusGateApp_HiltComponents {
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
           HiltWrapper_SavedStateHandleModule.class,
           MathGateViewModel_HiltModules.KeyModule.class,
+          NavViewModel_HiltModules.KeyModule.class,
           OnboardingViewModel_HiltModules.KeyModule.class,
           SettingsViewModel_HiltModules.KeyModule.class
       }
@@ -216,6 +218,7 @@ public final class FocusGateApp_HiltComponents {
           DashboardViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
           MathGateViewModel_HiltModules.BindsModule.class,
+          NavViewModel_HiltModules.BindsModule.class,
           OnboardingViewModel_HiltModules.BindsModule.class,
           SettingsViewModel_HiltModules.BindsModule.class
       }

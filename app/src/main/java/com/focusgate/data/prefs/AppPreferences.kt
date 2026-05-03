@@ -22,6 +22,9 @@ class AppPreferences @Inject constructor(
         val KEY_FOCUS_SESSION_START = longPreferencesKey("focus_session_start")
         val KEY_LAST_CREDIT_EARNED = longPreferencesKey("last_credit_earned")
         val KEY_SERVICE_ENABLED = booleanPreferencesKey("service_enabled")
+        val KEY_SELECTED_MATH_CATEGORIES = stringSetPreferencesKey("selected_math_categories")
+        val KEY_LAST_APP_OPEN_TIME = longPreferencesKey("last_app_open_time")
+        val KEY_PERMISSIONS_CONFIGURED = booleanPreferencesKey("permissions_configured")
     }
 
     val isOnboardingDone: Flow<Boolean> = context.dataStore.data
@@ -32,6 +35,15 @@ class AppPreferences @Inject constructor(
 
     val isServiceEnabled: Flow<Boolean> = context.dataStore.data
         .map { it[KEY_SERVICE_ENABLED] ?: false }
+
+    val selectedMathCategories: Flow<Set<String>> = context.dataStore.data
+        .map { it[KEY_SELECTED_MATH_CATEGORIES] ?: setOf("BASIC", "ALGEBRA", "ADVANCED") }
+
+    val lastAppOpenTime: Flow<Long> = context.dataStore.data
+        .map { it[KEY_LAST_APP_OPEN_TIME] ?: 0L }
+
+    val arePermissionsConfigured: Flow<Boolean> = context.dataStore.data
+        .map { it[KEY_PERMISSIONS_CONFIGURED] ?: false }
 
     val focusSessionStart: Flow<Long> = context.dataStore.data
         .map { it[KEY_FOCUS_SESSION_START] ?: System.currentTimeMillis() }
@@ -49,6 +61,18 @@ class AppPreferences @Inject constructor(
 
     suspend fun setServiceEnabled(enabled: Boolean) {
         context.dataStore.edit { it[KEY_SERVICE_ENABLED] = enabled }
+    }
+
+    suspend fun setSelectedMathCategories(categories: Set<String>) {
+        context.dataStore.edit { it[KEY_SELECTED_MATH_CATEGORIES] = categories }
+    }
+
+    suspend fun setLastAppOpenTime(time: Long) {
+        context.dataStore.edit { it[KEY_LAST_APP_OPEN_TIME] = time }
+    }
+
+    suspend fun setPermissionsConfigured(configured: Boolean) {
+        context.dataStore.edit { it[KEY_PERMISSIONS_CONFIGURED] = configured }
     }
 
     suspend fun resetFocusSession() {

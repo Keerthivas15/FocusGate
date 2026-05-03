@@ -46,6 +46,7 @@ class OnboardingViewModel @Inject constructor(
 
     fun completeOnboarding() = viewModelScope.launch {
         prefs.setOnboardingDone()
+        prefs.setPermissionsConfigured(true)
     }
 }
 

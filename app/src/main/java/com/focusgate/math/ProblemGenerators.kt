@@ -1,16 +1,67 @@
 package com.focusgate.math
 
+import com.focusgate.domain.model.MathCategory
 import com.focusgate.domain.model.MathProblem
 import com.focusgate.domain.model.ProblemType
 import kotlin.random.Random
 
 // ─── Interface ────────────────────────────────────────────────────────────────
 interface ProblemGenerator {
+    val category: MathCategory
     fun generate(): MathProblem
+}
+
+// ─── Basic Math (Addition/Subtraction) ────────────────────────────────────────
+class BasicMathProblem : ProblemGenerator {
+    override val category = MathCategory.BASIC
+    override fun generate(): MathProblem {
+        val isAddition = Random.nextBoolean()
+        val a = Random.nextInt(1, 100)
+        val b = Random.nextInt(1, 100)
+        return if (isAddition) {
+            MathProblem(
+                displayText = "Solve: $a + $b",
+                inputHint = "Enter the sum",
+                correctAnswer = (a + b).toString(),
+                type = ProblemType.BASIC_ADDITION,
+            )
+        } else {
+            val large = maxOf(a, b)
+            val small = minOf(a, b)
+            MathProblem(
+                displayText = "Solve: $large - $small",
+                inputHint = "Enter the difference",
+                correctAnswer = (large - small).toString(),
+                type = ProblemType.BASIC_SUBTRACTION,
+            )
+        }
+    }
+}
+
+// ─── Algebra (Linear Equations) ───────────────────────────────────────────────
+class AlgebraProblem : ProblemGenerator {
+    override val category = MathCategory.ALGEBRA
+    override fun generate(): MathProblem {
+        // ax + b = c
+        val x = Random.nextInt(-10, 11)
+        val a = Random.nextInt(1, 10)
+        val b = Random.nextInt(-20, 21)
+        val c = (a * x) + b
+        
+        val bDisplay = if (b >= 0) "+ $b" else "- ${kotlin.math.abs(b)}"
+        
+        return MathProblem(
+            displayText = "Solve for x:\n$a x $bDisplay = $c",
+            inputHint = "Enter x",
+            correctAnswer = x.toString(),
+            type = ProblemType.ALGEBRA_LINEAR,
+        )
+    }
 }
 
 // ─── 2×2 Determinant ──────────────────────────────────────────────────────────
 class DeterminantProblem : ProblemGenerator {
+    override val category = MathCategory.ADVANCED
     override fun generate(): MathProblem {
         val a = Random.nextInt(-9, 10)
         val b = Random.nextInt(-9, 10)
@@ -33,6 +84,7 @@ class DeterminantProblem : ProblemGenerator {
 
 // ─── Dot Product ──────────────────────────────────────────────────────────────
 class DotProductProblem : ProblemGenerator {
+    override val category = MathCategory.ADVANCED
     override fun generate(): MathProblem {
         val u = List(3) { Random.nextInt(-6, 7) }
         val v = List(3) { Random.nextInt(-6, 7) }
@@ -53,6 +105,7 @@ class DotProductProblem : ProblemGenerator {
 
 // ─── 2×2 Matrix Multiplication (single element) ───────────────────────────────
 class MatrixMultiplyProblem : ProblemGenerator {
+    override val category = MathCategory.ADVANCED
     override fun generate(): MathProblem {
         // A (2x2) × B (2x2), ask for one specific element C[row][col]
         val a = Array(2) { Array(2) { Random.nextInt(-5, 6) } }
@@ -79,10 +132,16 @@ class MatrixMultiplyProblem : ProblemGenerator {
 // ─── Registry: picks a random generator ──────────────────────────────────────
 class ProblemRegistry {
     private val generators: List<ProblemGenerator> = listOf(
+        BasicMathProblem(),
+        AlgebraProblem(),
         DeterminantProblem(),
         DotProductProblem(),
         MatrixMultiplyProblem()
     )
 
-    fun next(): MathProblem = generators.random().generate()
+    fun next(allowedCategories: Set<MathCategory> = MathCategory.entries.toSet()): MathProblem {
+        val filtered = generators.filter { it.category in allowedCategories }
+        val source = filtered.ifEmpty { generators }
+        return source.random().generate()
+    }
 }

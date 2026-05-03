@@ -46,5 +46,16 @@ class CreditRepository @Inject constructor(
         return true
     }
 
+    /**
+     * Calculates bonus "free" minutes based on idle time.
+     * 10 hours idle = 60 minutes free.
+     * Each additional hour = +15 minutes free.
+     */
+    fun calculateIdleBonusMinutes(idleMs: Long): Int {
+        val hours = idleMs / (1000 * 60 * 60)
+        if (hours < 10) return 0
+        return 60 + ((hours - 10) * 15).toInt()
+    }
+
     suspend fun purgeExpired() = dao.purgeExpired(System.currentTimeMillis())
 }

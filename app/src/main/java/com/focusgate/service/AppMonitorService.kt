@@ -81,15 +81,31 @@ class AppMonitorService : LifecycleService() {
                 if (fg != null && fg in blocked && fg != BuildConfig.APPLICATION_ID) {
                     unlockManager.expireIfNeeded(fg)
                     if (!unlockManager.isUnlocked(fg)) {
-                        launchMathGate(fg)
-                        focusSessionStartMs = System.currentTimeMillis() // reset streak
+                        // Check for idle bonus
+                        val lastOpen = prefs.lastAppOpenTime.first()
+                        val idleMs = System.currentTimeMillis() - lastOpen
+                        val bonusMins = creditRepo.calculateIdleBonusMinutes(idleMs)
+                        
+                        if (bonusMins > 0) {
+                            unlockManager.grantUnlock(fg, bonusMins)
+                            showIdleBonusNotification(bonusMins)
+                        } else {
+                            launchMathGate(fg)
+                            focusSessionStartMs = System.currentTimeMillis() // reset streak
+                        }
                     }
+                    // Update last open time whenever a blocked app is in use
+                    prefs.setLastAppOpenTime(System.currentTimeMillis())
                 } else {
                     // Not using a blocked app — track focus time
                     val focusMs = System.currentTimeMillis() - focusSessionStartMs
                     if (focusMs >= CREDIT_FOCUS_THRESHOLD_MS) {
                         tryEarnCredit()
                     }
+                }
+
+                if (fg == BuildConfig.APPLICATION_ID) {
+                    prefs.setLastAppOpenTime(System.currentTimeMillis())
                 }
 
                 delay(POLL_INTERVAL_MS)
@@ -166,6 +182,16 @@ class AppMonitorService : LifecycleService() {
             .setAutoCancel(true)
             .build()
         getSystemService(NotificationManager::class.java).notify(202, n)
+    }
+
+    private fun showIdleBonusNotification(minutes: Int) {
+        val n = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle("🎁 Welcome Back!")
+            .setContentText("You've been away for 10+ hours. Enjoy $minutes mins of free access.")
+            .setSmallIcon(R.drawable.ic_shield)
+            .setAutoCancel(true)
+            .build()
+        getSystemService(NotificationManager::class.java).notify(203, n)
     }
 
     override fun onDestroy() {

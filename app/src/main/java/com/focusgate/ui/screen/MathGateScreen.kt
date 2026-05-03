@@ -1,7 +1,5 @@
 package com.focusgate.ui.screen
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,13 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,8 +32,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.focusgate.R
 import com.focusgate.data.prefs.AppPreferences
-import com.focusgate.data.repository.BlockedAppRepository
 import com.focusgate.data.repository.CreditRepository
+import com.focusgate.domain.model.MathCategory
 import com.focusgate.domain.model.MathProblem
 import com.focusgate.math.ProblemRegistry
 import com.focusgate.ui.theme.FocusGateTheme
@@ -53,7 +49,8 @@ sealed class MathGateUiState {
     data class Solving(
         val problem: MathProblem,
         val wrongAttempts: Int = 0,
-        val hasCredits: Boolean = false
+        val hasCredits: Boolean = false,
+        val allowedCategories: Set<MathCategory> = emptySet(),
     ) : MathGateUiState()
     object Unlocked : MathGateUiState()
 }
@@ -64,36 +61,56 @@ class MathGateViewModel @Inject constructor(
     private val registry: ProblemRegistry,
     private val unlockManager: UnlockStateManager,
     private val creditRepo: CreditRepository,
-    private val prefs: AppPreferences
+    private val prefs: AppPreferences,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<MathGateUiState>(
-        MathGateUiState.Solving(registry.next())
+        MathGateUiState.Solving(registry.next()),
     )
     val state: StateFlow<MathGateUiState> = _state
 
-    init { refreshCredits() }
+    init {
+        refreshCredits()
+        observeSettings()
+    }
+
+    private fun observeSettings() = viewModelScope.launch {
+        prefs.selectedMathCategories.collect { stringSet ->
+            val categories = stringSet.mapNotNull {
+                runCatching { MathCategory.valueOf(it) }.getOrNull()
+            }.toSet()
+            
+            val current = _state.value
+            if (current is MathGateUiState.Solving) {
+                _state.value = current.copy(
+                    allowedCategories = categories,
+                    problem = registry.next(categories)
+                )
+            }
+        }
+    }
 
     private fun refreshCredits() = viewModelScope.launch {
         val credits = creditRepo.availableCredits()
         val current = _state.value
-        if (current is MathGateUiState.Solving) {
-            _state.value = current.copy(hasCredits = credits.isNotEmpty())
+        (current as? MathGateUiState.Solving)?.let {
+            _state.value = it.copy(hasCredits = credits.isNotEmpty())
         }
     }
 
     fun submit(answer: String, targetPkg: String) = viewModelScope.launch {
-        val current = _state.value as? MathGateUiState.Solving ?: return@launch
+        val current = (_state.value as? MathGateUiState.Solving) ?: return@launch
         if (answer.trim() == current.problem.correctAnswer) {
             val duration = prefs.unlockDurationMinutes.first()
             unlockManager.grantUnlock(targetPkg, duration)
             _state.value = MathGateUiState.Unlocked
         } else {
-            val newProblem = registry.next()
+            val newProblem = registry.next(current.allowedCategories)
             _state.value = MathGateUiState.Solving(
                 problem = newProblem,
                 wrongAttempts = current.wrongAttempts + 1,
-                hasCredits = current.hasCredits
+                hasCredits = current.hasCredits,
+                allowedCategories = current.allowedCategories,
             )
         }
     }
@@ -108,8 +125,13 @@ class MathGateViewModel @Inject constructor(
     }
 
     /** Called when user presses back or leaves — resets the problem. */
-    fun onUserLeft() {
-        _state.value = MathGateUiState.Solving(registry.next())
+    fun onUserLeft() = viewModelScope.launch {
+        val categories = (_state.value as? MathGateUiState.Solving)?.allowedCategories
+            ?: MathCategory.entries.toSet()
+        _state.value = MathGateUiState.Solving(
+            problem = registry.next(categories),
+            allowedCategories = categories
+        )
     }
 }
 
@@ -134,15 +156,13 @@ class MathGateActivity : ComponentActivity() {
                 MathGateScreen(
                     targetPkg = targetPkg,
                     vm = viewModel,
-                    onUnlocked = {
-                        // Launch the target app, then finish
-                        runCatching {
-                            val launchIntent = packageManager.getLaunchIntentForPackage(targetPkg)
-                            if (launchIntent != null) startActivity(launchIntent)
-                        }
-                        finish()
+                ) {
+                    // Launch the target app, then finish
+                    runCatching {
+                        packageManager.getLaunchIntentForPackage(targetPkg)?.let { startActivity(it) }
                     }
-                )
+                    finish()
+                }
             }
         }
     }
@@ -155,6 +175,7 @@ class MathGateActivity : ComponentActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
+        super.onBackPressed()
         // Intentionally do nothing — back is intercepted by BackHandler in Compose
         // If we want back to reset too:
         viewModel.onUserLeft()
@@ -166,7 +187,7 @@ class MathGateActivity : ComponentActivity() {
 fun MathGateScreen(
     targetPkg: String,
     vm: MathGateViewModel = hiltViewModel(),
-    onUnlocked: () -> Unit
+    onUnlocked: () -> Unit,
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
 
@@ -184,10 +205,8 @@ fun MathGateScreen(
         when (val s = state) {
             is MathGateUiState.Solving -> SolvingContent(
                 state = s,
-                targetPkg = targetPkg,
                 onSubmit = { vm.submit(it, targetPkg) },
-                onUseCredit = { vm.useCredit(targetPkg) }
-            )
+            ) { vm.useCredit(targetPkg) }
             is MathGateUiState.Unlocked -> UnlockedContent()
         }
     }
@@ -196,9 +215,8 @@ fun MathGateScreen(
 @Composable
 private fun SolvingContent(
     state: MathGateUiState.Solving,
-    targetPkg: String,
     onSubmit: (String) -> Unit,
-    onUseCredit: () -> Unit
+    onUseCredit: () -> Unit,
 ) {
     var input by remember(state.problem.id) { mutableStateOf("") }
     val focusRequester = remember { FocusRequester() }
@@ -213,7 +231,7 @@ private fun SolvingContent(
             .background(MaterialTheme.colorScheme.background)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         // Header
         Icon(
@@ -226,7 +244,7 @@ private fun SolvingContent(
         Text(
             "Solve to Continue",
             style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
         Text(
             "Complete the problem to unlock this app",
@@ -241,17 +259,17 @@ private fun SolvingContent(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer
-            )
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+            ),
         ) {
             Text(
                 text = state.problem.displayText,
                 modifier = Modifier.padding(20.dp),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontFamily = FontFamily.Monospace,
-                    lineHeight = 26.sp
+                    lineHeight = 26.sp,
                 ),
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
             )
         }
 
@@ -262,25 +280,25 @@ private fun SolvingContent(
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
                 ),
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(8.dp),
             ) {
                 Row(
                     modifier = Modifier.padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Icon(
                         Icons.Default.Close,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(18.dp),
                     )
                     Spacer(Modifier.width(8.dp))
                     Text(
                         "Incorrect (attempt ${state.wrongAttempts}). New problem generated.",
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onErrorContainer
+                        color = MaterialTheme.colorScheme.onErrorContainer,
                     )
                 }
             }
@@ -290,12 +308,12 @@ private fun SolvingContent(
         // Answer Input
         OutlinedTextField(
             value = input,
-            onValueChange = { input = it.filter { c -> c.isDigit() || c == '-' } },
+            onValueChange = { input = it.filter { c -> (c.isDigit() || (c == '-')) } },
             modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
             label = { Text(state.problem.inputHint) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Done,
             ),
             keyboardActions = KeyboardActions(
                 onDone = { if (input.isNotBlank()) onSubmit(input) }
@@ -311,7 +329,7 @@ private fun SolvingContent(
             onClick = { if (input.isNotBlank()) onSubmit(input) },
             modifier = Modifier.fillMaxWidth().height(52.dp),
             enabled = input.isNotBlank(),
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
         ) {
             Icon(Icons.Default.Check, contentDescription = null)
             Spacer(Modifier.width(8.dp))
@@ -339,7 +357,7 @@ private fun UnlockedContent() {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         CircularProgressIndicator()
         Spacer(Modifier.height(16.dp))

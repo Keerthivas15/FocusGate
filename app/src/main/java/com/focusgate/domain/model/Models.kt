@@ -17,7 +17,20 @@ data class MathProblem(
     val type: ProblemType
 )
 
-enum class ProblemType { DETERMINANT, DOT_PRODUCT, MATRIX_MULTIPLY }
+enum class ProblemType {
+    DETERMINANT,
+    DOT_PRODUCT,
+    MATRIX_MULTIPLY,
+    BASIC_ADDITION,
+    BASIC_SUBTRACTION,
+    ALGEBRA_LINEAR
+}
+
+enum class MathCategory(val displayName: String) {
+    BASIC("Basic Math"),
+    ALGEBRA("Algebra"),
+    ADVANCED("Advanced (Matrices)")
+}
 
 // ─── Unlock State ─────────────────────────────────────────────────────────────
 sealed class UnlockState {
