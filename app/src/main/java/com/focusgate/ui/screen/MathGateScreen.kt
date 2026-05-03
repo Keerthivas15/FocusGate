@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.animation.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,6 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -220,16 +225,41 @@ private fun SolvingContent(
 ) {
     var input by remember(state.problem.id) { mutableStateOf("") }
     val focusRequester = remember { FocusRequester() }
+    val haptic = LocalHapticFeedback.current
+
+    // Shake animation state
+    val shakeOffset = remember { Animatable(0f) }
 
     LaunchedEffect(state.problem.id) {
         runCatching { focusRequester.requestFocus() }
+    }
+
+    // Trigger shake on wrong attempt
+    LaunchedEffect(state.wrongAttempts) {
+        if (state.wrongAttempts > 0) {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            shakeOffset.animateTo(
+                targetValue = 0f,
+                animationSpec = keyframes {
+                    durationMillis = 400
+                    (-20f) at 50
+                    (20f) at 100
+                    (-20f) at 150
+                    (20f) at 200
+                    (-10f) at 250
+                    (10f) at 300
+                    (-5f) at 350
+                }
+            )
+        }
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(24.dp),
+            .padding(24.dp)
+            .graphicsLayer(translationX = shakeOffset.value),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -326,7 +356,10 @@ private fun SolvingContent(
 
         // Submit Button
         Button(
-            onClick = { if (input.isNotBlank()) onSubmit(input) },
+            onClick = {
+                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                if (input.isNotBlank()) onSubmit(input)
+            },
             modifier = Modifier.fillMaxWidth().height(52.dp),
             enabled = input.isNotBlank(),
             shape = RoundedCornerShape(12.dp),
