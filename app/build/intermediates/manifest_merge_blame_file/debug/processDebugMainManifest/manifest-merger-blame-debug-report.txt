@@ -1,0 +1,228 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.focusgate"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+11-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:5:5-7:47
+11-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:6:9-62
+12    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+12-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:8:5-78
+12-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:8:22-75
+13    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+13-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:9:5-77
+13-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:9:22-74
+14    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+14-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:10:5-89
+14-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:10:22-86
+15    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+15-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:11:5-81
+15-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:11:22-78
+16    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+16-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:12:5-95
+16-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:12:22-92
+17    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+17-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:13:5-77
+17-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:13:22-74
+18    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+18-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:14:5-16:53
+18-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:15:9-61
+19
+20    <permission
+20-->[androidx.core:core:1.13.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\445a12a4feb02ef36eeb5da0d3f7a49c\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+21        android:name="com.focusgate.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+21-->[androidx.core:core:1.13.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\445a12a4feb02ef36eeb5da0d3f7a49c\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+22        android:protectionLevel="signature" />
+22-->[androidx.core:core:1.13.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\445a12a4feb02ef36eeb5da0d3f7a49c\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+23
+24    <uses-permission android:name="com.focusgate.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+24-->[androidx.core:core:1.13.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\445a12a4feb02ef36eeb5da0d3f7a49c\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+24-->[androidx.core:core:1.13.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\445a12a4feb02ef36eeb5da0d3f7a49c\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+25
+26    <application
+26-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:18:5-69:19
+27        android:name="com.focusgate.FocusGateApp"
+27-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:19:9-37
+28        android:allowBackup="true"
+28-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:20:9-35
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.13.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\445a12a4feb02ef36eeb5da0d3f7a49c\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+30        android:dataExtractionRules="@xml/data_extraction_rules"
+30-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:21:9-65
+31        android:debuggable="true"
+32        android:extractNativeLibs="false"
+33        android:fullBackupContent="@xml/backup_rules"
+33-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:22:9-54
+34        android:icon="@drawable/ic_grit_logo"
+34-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:23:9-46
+35        android:label="@string/app_name"
+35-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:24:9-41
+36        android:roundIcon="@drawable/ic_grit_logo"
+36-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:25:9-51
+37        android:supportsRtl="true"
+37-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:26:9-35
+38        android:testOnly="true"
+39        android:theme="@style/Theme.FocusGate" >
+39-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:27:9-47
+40        <activity
+40-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:30:9-39:20
+41            android:name="com.focusgate.MainActivity"
+41-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:31:13-41
+42            android:exported="true"
+42-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:32:13-36
+43            android:launchMode="singleTop"
+43-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:33:13-43
+44            android:windowSoftInputMode="adjustResize" >
+44-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:34:13-55
+45            <intent-filter>
+45-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:35:13-38:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:36:17-69
+46-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:36:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:37:17-77
+48-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:37:27-74
+49            </intent-filter>
+50        </activity>
+51        <activity
+51-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:41:9-49:54
+52            android:name="com.focusgate.ui.screen.MathGateActivity"
+52-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:42:13-55
+53            android:excludeFromRecents="true"
+53-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:45:13-46
+54            android:exported="false"
+54-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:48:13-37
+55            android:launchMode="singleTask"
+55-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:44:13-44
+56            android:showOnLockScreen="true"
+56-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:46:13-44
+57            android:taskAffinity="com.focusgate.mathgate"
+57-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:43:13-58
+58            android:theme="@style/Theme.FocusGate"
+58-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:49:13-51
+59            android:turnScreenOn="true" />
+59-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:47:13-40
+60
+61        <service
+61-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:51:9-58:19
+62            android:name="com.focusgate.service.AppMonitorService"
+62-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:52:13-54
+63            android:exported="false"
+63-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:54:13-37
+64            android:foregroundServiceType="specialUse" >
+64-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:53:13-55
+65            <property
+65-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:55:13-57:46
+66                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+66-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:56:17-76
+67                android:value="appBlocker" />
+67-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:57:17-43
+68        </service>
+69
+70        <receiver
+70-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:60:9-67:20
+71            android:name="com.focusgate.service.BootReceiver"
+71-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:61:13-49
+72            android:exported="false" >
+72-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:62:13-37
+73            <intent-filter>
+73-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:63:13-66:29
+74                <action android:name="android.intent.action.BOOT_COMPLETED" />
+74-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:64:17-79
+74-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:64:25-76
+75                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+75-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:65:17-84
+75-->C:\Users\balab\Downloads\FocusGate\FocusGate\app\src\main\AndroidManifest.xml:65:25-81
+76            </intent-filter>
+77        </receiver>
+78
+79        <provider
+79-->[androidx.emoji2:emoji2:1.3.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\e828777b22b29c12aebdd7358dfd5479\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+80            android:name="androidx.startup.InitializationProvider"
+80-->[androidx.emoji2:emoji2:1.3.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\e828777b22b29c12aebdd7358dfd5479\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+81            android:authorities="com.focusgate.androidx-startup"
+81-->[androidx.emoji2:emoji2:1.3.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\e828777b22b29c12aebdd7358dfd5479\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+82            android:exported="false" >
+82-->[androidx.emoji2:emoji2:1.3.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\e828777b22b29c12aebdd7358dfd5479\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+83            <meta-data
+83-->[androidx.emoji2:emoji2:1.3.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\e828777b22b29c12aebdd7358dfd5479\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+84                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+84-->[androidx.emoji2:emoji2:1.3.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\e828777b22b29c12aebdd7358dfd5479\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+85                android:value="androidx.startup" />
+85-->[androidx.emoji2:emoji2:1.3.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\e828777b22b29c12aebdd7358dfd5479\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+86            <meta-data
+86-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\ef79e58a74211bd4e21e99578e6db7bc\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:29:13-31:52
+87                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+87-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\ef79e58a74211bd4e21e99578e6db7bc\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:30:17-78
+88                android:value="androidx.startup" />
+88-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\ef79e58a74211bd4e21e99578e6db7bc\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:31:17-49
+89            <meta-data
+89-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+90                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+91                android:value="androidx.startup" />
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+92        </provider>
+93
+94        <activity
+94-->[androidx.compose.ui:ui-tooling-android:1.7.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\b0f46d5d68587297e3c6badc4cec2530\transformed\ui-tooling-release\AndroidManifest.xml:23:9-25:39
+95            android:name="androidx.compose.ui.tooling.PreviewActivity"
+95-->[androidx.compose.ui:ui-tooling-android:1.7.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\b0f46d5d68587297e3c6badc4cec2530\transformed\ui-tooling-release\AndroidManifest.xml:24:13-71
+96            android:exported="true" />
+96-->[androidx.compose.ui:ui-tooling-android:1.7.0] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\b0f46d5d68587297e3c6badc4cec2530\transformed\ui-tooling-release\AndroidManifest.xml:25:13-36
+97
+98        <service
+98-->[androidx.room:room-runtime:2.6.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\b71b82ee0411d0cd8094962c61f794b5\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+99            android:name="androidx.room.MultiInstanceInvalidationService"
+99-->[androidx.room:room-runtime:2.6.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\b71b82ee0411d0cd8094962c61f794b5\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+100            android:directBootAware="true"
+100-->[androidx.room:room-runtime:2.6.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\b71b82ee0411d0cd8094962c61f794b5\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+101            android:exported="false" />
+101-->[androidx.room:room-runtime:2.6.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\b71b82ee0411d0cd8094962c61f794b5\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+102
+103        <receiver
+103-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+104            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+104-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+105            android:directBootAware="false"
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+106            android:enabled="true"
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+107            android:exported="true"
+107-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+108            android:permission="android.permission.DUMP" >
+108-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+109            <intent-filter>
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+110                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+111            </intent-filter>
+112            <intent-filter>
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+113                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+114            </intent-filter>
+115            <intent-filter>
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+116                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+117            </intent-filter>
+118            <intent-filter>
+118-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+119                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+119-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+119-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\balab\Downloads\FocusGate\caches\transforms-4\3a6f18f410abeabcd456977273eb586e\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+120            </intent-filter>
+121        </receiver>
+122    </application>
+123
+124</manifest>

@@ -1,0 +1,2 @@
+-keep class com.focusgate.** { *; }
+-keepclassmembers class * extends androidx.room.RoomDatabase { *; }
